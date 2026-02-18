@@ -1,0 +1,7 @@
+{
+  "name": "Malandula Beekeeping Enterprise",
+  "description": "A professional digital storefront for Malandula Enterprise, specializing in high-quality beekeeping supplies and equipment to unlock the 'Hidden Treasure' of honey production.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
