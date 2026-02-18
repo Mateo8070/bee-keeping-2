@@ -69,6 +69,12 @@ export const TESTIMONIALS = [
     location: 'Zomba',
     feedback: 'The honey extractor works perfectly. It saves so much time compared to traditional methods. Ulimi wa njochi ndi chuma obisika kwadi!',
     photo: 'https://i.pravatar.cc/150?u=esther'
+  },
+  {
+    name: 'John Chilwa',
+    location: 'Blantyre',
+    feedback: 'I received professional training along with my starter kit. Malandula really knows their stuff when it comes to the Hidden Treasure of honey.',
+    photo: 'https://i.pravatar.cc/150?u=john'
   }
 ];
 

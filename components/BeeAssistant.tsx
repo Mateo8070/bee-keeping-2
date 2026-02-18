@@ -34,7 +34,7 @@ const BeeAssistant: React.FC = () => {
   return (
     <div className="fixed bottom-6 right-6 z-[60]">
       {isOpen ? (
-        <div className="bg-white rounded-3xl shadow-2xl border border-amber-100 w-[90vw] sm:w-[450px] flex flex-col overflow-hidden max-h-[600px] animate-in fade-in zoom-in duration-300">
+        <div className="bg-white rounded-3xl shadow-2xl border border-amber-100 w-[95vw] sm:w-[500px] flex flex-col overflow-hidden max-h-[70vh] animate-in fade-in zoom-in duration-300">
           <div className="bg-amber-600 p-4 text-white flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-lg">
@@ -45,18 +45,18 @@ const BeeAssistant: React.FC = () => {
                 <span className="text-[10px] opacity-80 uppercase tracking-widest font-bold">Expert AI Consultant</span>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-white hover:text-amber-200 transition-colors">
+            <button onClick={() => setIsOpen(false)} className="text-white hover:text-amber-200 transition-colors p-2" aria-label="Close assistant">
               <i className="fas fa-times text-xl"></i>
             </button>
           </div>
           
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50 h-[400px]">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50 min-h-[300px]">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
-                <div className={`max-w-[95%] px-4 py-3 rounded-2xl text-sm ${
+                <div className={`w-[95%] px-4 py-3 rounded-2xl text-sm ${
                   m.role === 'user' 
-                    ? 'bg-amber-600 text-white rounded-br-none shadow-md' 
-                    : 'bg-white border border-amber-100 text-stone-700 rounded-bl-none shadow-sm prose-chat'
+                    ? 'bg-amber-600 text-white rounded-br-none shadow-md ml-auto' 
+                    : 'bg-white border border-amber-100 text-stone-700 rounded-bl-none shadow-sm mr-auto prose-chat'
                 }`}>
                   {m.role === 'bot' ? (
                     <ReactMarkdown>{m.text}</ReactMarkdown>
@@ -83,12 +83,12 @@ const BeeAssistant: React.FC = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ask about hives, smokers, or honey..."
-              className="flex-1 bg-stone-100 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+              className="flex-1 bg-stone-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
             />
             <button 
               type="submit" 
               disabled={isTyping}
-              className="bg-amber-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-amber-600 text-white w-12 h-12 rounded-xl flex items-center justify-center hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
               <i className="fas fa-paper-plane"></i>
             </button>
@@ -97,10 +97,11 @@ const BeeAssistant: React.FC = () => {
       ) : (
         <button 
           onClick={() => setIsOpen(true)}
-          className="bg-amber-600 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group relative"
+          className="bg-amber-600 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group relative border-4 border-white"
+          aria-label="Open assistant"
         >
           <i className="fas fa-comment-dots text-2xl"></i>
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-sm">
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-sm border border-white">
             AI HELP
           </span>
         </button>
