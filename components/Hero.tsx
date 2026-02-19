@@ -85,32 +85,46 @@ const Hero: React.FC = () => {
         {/* Left: copy */}
         <div className="space-y-6 lg:space-y-8">
 
-          {/* Eyebrow badge */}
-          <div className="hero-fade-up" style={{ animationDelay: '0.1s' }}>
-            <div className="inline-flex items-center gap-2.5 bg-amber-500/10 border border-amber-500/25 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full">
-              <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-amber-400 rounded-full animate-pulse" />
-              <span className="text-amber-400 text-[10px] lg:text-xs font-bold uppercase tracking-[0.15em] lg:tracking-[0.2em]">
-                Beekeeping · The Hidden Treasure
-              </span>
+          {/* Eyebrow — badge + decorative rule on desktop */}
+          <div className="hero-fade-up flex items-center gap-4" style={{ animationDelay: '0.1s' }}>
+            <div className="flex items-center gap-2.5 bg-amber-500/10 border border-amber-500/25 px-3 py-1.5 rounded-full flex-shrink-0">
+              <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" />
+              <span className="text-amber-400 text-[10px] font-bold uppercase tracking-[0.18em]">Beekeeping</span>
+            </div>
+            <div className="hidden lg:flex items-center gap-3">
+              <div className="h-px w-12 bg-gradient-to-r from-stone-700 to-transparent" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-stone-500">The Hidden Treasure</span>
             </div>
           </div>
 
-          {/* Heading — smaller on mobile */}
-          <h1
-            className="hero-fade-up font-serif leading-[1.1] text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-            style={{ animationDelay: '0.2s' }}
-          >
-            Unlock the{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Golden</span>
-            {' '}Wealth of Beekeeping
-          </h1>
+          {/* Headline — 3-line typographic treatment */}
+          <div className="hero-fade-up space-y-1" style={{ animationDelay: '0.2s' }}>
+            <p className="font-serif text-stone-400 text-xl sm:text-2xl lg:text-3xl leading-tight">Unlock the</p>
+            <h1 className="font-serif leading-none text-transparent bg-clip-text bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+              Golden Wealth
+            </h1>
+            <p className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl leading-tight">of Beekeeping</p>
+          </div>
 
-          {/* Sub-copy */}
-          <p className="hero-fade-up text-sm sm:text-base lg:text-lg text-stone-400 leading-relaxed max-w-lg" style={{ animationDelay: '0.3s' }}>
-            Ngati muli ndi nkhalango pa munda wanu or pakhomo panu: {' '}
-            <span className="text-stone-300">Gulani zipangizo za ulimi wa njuchi</span>{' '}
-            kuti mukolole uchi wambiri!
-          </p>
+          {/* Sub-copy — left-border callout instead of plain paragraph */}
+          <div className="hero-fade-up" style={{ animationDelay: '0.3s' }}>
+            <div className="flex gap-4">
+              <div className="w-0.5 flex-shrink-0 rounded-full bg-gradient-to-b from-amber-500 to-transparent mt-1 self-stretch" />
+              <div className="space-y-2">
+                <p className="text-stone-300 text-sm sm:text-base leading-relaxed italic">
+                  "Ngati muli ndi nkhalango pa munda wanu or pakhomo panu —
+                  gulani zipangizo za ulimi wa njuchi kuti mukolore uchi wambiri!"
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🍯</span>
+                  <span className="text-amber-400/80 text-xs font-semibold uppercase tracking-widest">
+                    Malawi's premium beekeeping supplier
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
           {/* CTA buttons — thinner on mobile */}
           <div className="hero-fade-up flex flex-wrap gap-3" style={{ animationDelay: '0.4s' }}>
