@@ -80,10 +80,10 @@ const Hero: React.FC = () => {
       <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 pb-16 grid lg:grid-cols-2 gap-12 items-center w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 pb-16 grid lg:grid-cols-[3fr_2fr] gap-12 items-center w-full">
 
         {/* Left: copy */}
-        <div className="space-y-6 lg:space-y-8">
+        <div className="space-y-6 lg:space-y-8 min-w-0">
 
           {/* Eyebrow — badge + decorative rule on desktop */}
           <div className="hero-fade-up flex items-center gap-4" style={{ animationDelay: '0.1s' }}>
@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
           {/* Headline — 3-line typographic treatment */}
           <div className="hero-fade-up space-y-1" style={{ animationDelay: '0.2s' }}>
             <p className="font-serif text-stone-400 text-xl sm:text-2xl lg:text-3xl leading-tight">Unlock the</p>
-            <h1 className="font-serif leading-none text-transparent bg-clip-text bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+            <h1 className="font-serif leading-none text-transparent bg-clip-text bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-nowrap">
               Golden Wealth
             </h1>
             <p className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl leading-tight">of Beekeeping</p>
