@@ -4,9 +4,19 @@ export interface Product {
   name: string;
   nameChichewa: string;
   description: string;
-  price?: string;
   image: string;
-  category: 'Gear' | 'Equipment' | 'Hives';
+  category: 'Hives' | 'Gear' | 'Equipment';
+  price?: string;
+  badge?: string;
+}
+
+export interface StarterKit {
+  id: string;
+  name: string;
+  description: string;
+  items: string[];
+  image: string;
+  highlight: string;
 }
 
 export interface NavItem {

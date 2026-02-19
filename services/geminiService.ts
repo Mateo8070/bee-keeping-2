@@ -18,7 +18,7 @@ export const getBeekeepingAdvice = async (userQuery: string) => {
         
         PRODUCT CATALOG:
         - Modern Langstroth Beehives (Mng'oma wa Makono): For high yield and durability.
-        - Professional Bee Suits (Zovala za Njochi): Full protection with ventilation.
+        - Professional Bee Suits (Zovala za Njuchi): Full protection with ventilation.
         - Stainless Steel Smokers (Chochititsira Utsi): Heat-guarded to calm bees safely.
         - Honey Extractors/Cillars (Makina Opulira Uchi): Stainless steel for pure extraction.
         - Hive Tools and Brushes (Zida za m'munda): Essential for safe hive management.
