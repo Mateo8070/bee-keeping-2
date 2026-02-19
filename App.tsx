@@ -92,12 +92,12 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="reveal text-center max-w-2xl mx-auto mb-12 space-y-4">
               <span className="text-amber-400 font-bold uppercase tracking-[0.2em] text-xs">Our Catalog</span>
-              <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">Premium Beekeeping Equipment</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-tight">Premium Beekeeping Equipment</h2>
               <p className="text-stone-400">A Malandula Enterprise provides the best tools in Malawi. Contact us to get the best price.</p>
             </div>
 
             {/* Category tabs */}
-            <div className="reveal reveal-delay-1 flex flex-wrap justify-center gap-2 mb-12">
+            <div className="reveal reveal-delay-1 flex gap-2 mb-10 overflow-x-auto pb-1 scrollbar-none justify-start sm:justify-center">
               {CATEGORIES.map(cat => (
                 <button
                   key={cat}
