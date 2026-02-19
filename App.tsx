@@ -12,8 +12,6 @@ import {
 } from './constants';
 import { Product } from './types';
 
-type CategoryFilter = 'All' | 'Hives' | 'Gear' | 'Equipment';
-const CATEGORIES: CategoryFilter[] = ['All', 'Hives', 'Gear', 'Equipment'];
 
 /* ── Scroll-reveal wrapper ───────────────────────────────────── */
 const Section: React.FC<{ id?: string; className?: string; style?: React.CSSProperties; children: React.ReactNode }> = ({ id, className = '', style, children }) => (
@@ -27,7 +25,6 @@ const PHONE_NUMBER = '265999324743'; // WhatsApp number without leading zero
 const App: React.FC = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('All');
 
   // Contact form state — all controlled so we can build the WhatsApp message
   const [formName, setFormName] = useState('');
@@ -61,8 +58,6 @@ const App: React.FC = () => {
     return () => io.disconnect();
   }, []);
 
-  const filteredProducts: Product[] =
-    activeCategory === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeCategory);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,25 +91,10 @@ const App: React.FC = () => {
               <p className="text-stone-400">A Malandula Enterprise provides the best tools in Malawi. Contact us to get the best price.</p>
             </div>
 
-            {/* Category tabs */}
-            <div className="reveal reveal-delay-1 flex gap-2 mb-10 overflow-x-auto pb-1 scrollbar-none justify-start sm:justify-center">
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${activeCategory === cat
-                    ? 'bg-amber-500 text-stone-900 border-amber-500 shadow-lg shadow-amber-500/20'
-                    : 'bg-[#0c1530] text-stone-400 border-white/8 hover:border-amber-500/30 hover:text-amber-400'
-                    }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
 
             {/* Product grid — staggered reveal */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product, i) => (
+              {PRODUCTS.map((product, i) => (
                 <ProductCard key={product.id} product={product} delay={i * 80} />
               ))}
             </div>
@@ -136,7 +116,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="reveal text-center max-w-2xl mx-auto mb-14 space-y-4">
               <span className="text-amber-400 font-bold uppercase tracking-[0.2em] text-xs">Bundles</span>
-              <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">Ready-Made Starter Kits</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-tight">Ready-Made Starter Kits</h2>
               <p className="text-stone-400">Our curated bundles include everything you need, sourced and assembled by experts.</p>
             </div>
 
@@ -194,7 +174,7 @@ const App: React.FC = () => {
                   <span className="inline-block border border-amber-500/25 bg-amber-500/8 px-4 py-2 rounded-full text-amber-400 text-xs font-bold uppercase tracking-widest mb-6">
                     Beekeeping Philosophy
                   </span>
-                  <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-tight">
                     The <span className="text-amber-400">Hidden Treasure</span> is in your Backyard
                   </h2>
                 </div>
@@ -247,7 +227,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="reveal text-center mb-14 space-y-3">
               <span className="text-amber-400 font-bold uppercase tracking-[0.2em] text-xs">Customer Stories</span>
-              <h2 className="text-4xl font-serif text-white">Success with Malandula</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-white">Success with Malandula</h2>
             </div>
 
             <div className="reveal reveal-delay-1 relative max-w-3xl mx-auto">
@@ -517,7 +497,7 @@ const App: React.FC = () => {
 
           <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-600">
             <p>© {new Date().getFullYear()} A Malandula Enterprise and General Supplies. All rights reserved.</p>
-            <p className="text-amber-500/50 italic">"Chuma Obisika · The Hidden Treasure"</p>
+            <p className="text-amber-500/50 italic">"Chuma chobisika · The Hidden Treasure"</p>
           </div>
         </div>
       </footer>

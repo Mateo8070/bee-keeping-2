@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <img
           src="/honey.png"
-          className="w-full h-full object-cover opacity-40 md:opacity-25"
+          className="w-full h-full object-cover opacity-55 md:opacity-25"
           alt="Golden honey background"
         />
         {/* Mobile: strong bottom-to-top gradient so text is always readable */}
@@ -107,8 +107,8 @@ const Hero: React.FC = () => {
 
           {/* Sub-copy */}
           <p className="hero-fade-up text-sm sm:text-base lg:text-lg text-stone-400 leading-relaxed max-w-lg" style={{ animationDelay: '0.3s' }}>
-            Ngati muli ndi nkhalango pa munda wanu or pakhomo pano —{' '}
-            <span className="text-stone-300">gulani zipangizo za ulimi wa njuchi</span>{' '}
+            Ngati muli ndi nkhalango pa munda wanu or pakhomo panu: {' '}
+            <span className="text-stone-300">Gulani zipangizo za ulimi wa njuchi</span>{' '}
             kuti mukolole uchi wambiri!
           </p>
 

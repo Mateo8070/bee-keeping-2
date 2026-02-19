@@ -12,7 +12,7 @@ export const getBeekeepingAdvice = async (userQuery: string) => {
         systemInstruction: `You are the official AI Beekeeping Consultant for 'Malandula Enterprise and General Supplies'. 
         
         ABOUT THE BUSINESS:
-        - We specialize in high-quality beekeeping equipment to unlock the 'Hidden Treasure' (Chuma Obisika) of honey.
+        - We specialize in high-quality beekeeping equipment to unlock the 'Hidden Treasure' (Chuma chobisika) of honey.
         - Location: Malawi.
         - Contact Numbers: 0999324743, 0999469424.
         

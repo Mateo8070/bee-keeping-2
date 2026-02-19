@@ -102,7 +102,7 @@ export const TESTIMONIALS = [
   {
     name: 'Esther Mwale',
     location: 'Zomba',
-    feedback: 'The honey extractor works perfectly. It saves so much time compared to traditional methods. Ulimi wa njuchi ndi chuma obisika kwadi!',
+    feedback: 'The honey extractor works perfectly. It saves so much time compared to traditional methods. Ulimi wa njuchi ndi chuma chobisika kwadi!',
     photo: 'https://i.pravatar.cc/150?u=esther',
   },
   {
