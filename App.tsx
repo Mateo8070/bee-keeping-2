@@ -22,10 +22,33 @@ const Section: React.FC<{ id?: string; className?: string; style?: React.CSSProp
   </section>
 );
 
+const PHONE_NUMBER = '265999324743'; // WhatsApp number without leading zero
+
 const App: React.FC = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('All');
+
+  // Contact form state — all controlled so we can build the WhatsApp message
+  const [formName, setFormName] = useState('');
+  const [formPhone, setFormPhone] = useState('');
+  const [formProduct, setFormProduct] = useState('Modern Langstroth Beehives');
+  const [formMessage, setFormMessage] = useState('');
+
+  const buildWhatsAppLink = () => {
+    const lines = [
+      '🐝 *Malandula Enterprise – Product Inquiry*',
+      '',
+      `*Name:* ${formName || '(not provided)'}`,
+      `*Phone:* ${formPhone || '(not provided)'}`,
+      `*Interested in:* ${formProduct}`,
+      formMessage ? `*Message:* ${formMessage}` : '',
+      '',
+      '_Sent from the Malandula website_',
+    ].filter(l => l !== undefined);
+    const text = encodeURIComponent(lines.join('\n'));
+    return `https://wa.me/${PHONE_NUMBER}?text=${text}`;
+  };
 
   // Attach global scroll-reveal observer (needs DOM)
   useEffect(() => {
@@ -337,41 +360,81 @@ const App: React.FC = () => {
                 ) : (
                   <form className="space-y-5" onSubmit={handleFormSubmit}>
                     <div className="grid sm:grid-cols-2 gap-5">
-                      {[
-                        { label: 'Full Name', type: 'text', placeholder: 'Your Name' },
-                        { label: 'Phone Number', type: 'tel', placeholder: 'e.g. 0999XXXXXX' },
-                      ].map(({ label, type, placeholder }) => (
-                        <div key={label} className="space-y-1.5">
-                          <label className="text-xs font-semibold text-stone-400 uppercase tracking-wider">{label}</label>
-                          <input required type={type} placeholder={placeholder}
-                            className="w-full bg-[#0c1530] border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder-stone-600 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:outline-none transition-all duration-200 text-sm"
-                          />
-                        </div>
-                      ))}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Full Name</label>
+                        <input
+                          required type="text" placeholder="Your Name"
+                          value={formName} onChange={e => setFormName(e.target.value)}
+                          className="w-full bg-[#0c1530] border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder-stone-600 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:outline-none transition-all duration-200 text-sm"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Phone Number</label>
+                        <input
+                          required type="tel" placeholder="e.g. 0999XXXXXX"
+                          value={formPhone} onChange={e => setFormPhone(e.target.value)}
+                          className="w-full bg-[#0c1530] border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder-stone-600 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:outline-none transition-all duration-200 text-sm"
+                        />
+                      </div>
                     </div>
+
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Interested In</label>
-                      <select className="w-full bg-[#0c1530] border border-white/8 rounded-xl px-4 py-3.5 text-stone-300 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:outline-none transition-all duration-200 appearance-none text-sm">
-                        <option>Modern Langstroth Beehives</option>
-                        <option>Professional Bee Suits</option>
-                        <option>Stainless Steel Smokers</option>
-                        <option>Honey Extractors</option>
-                        <option>Beginner Starter Kit</option>
-                        <option>Farm Expansion Kit</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={formProduct} onChange={e => setFormProduct(e.target.value)}
+                          className="w-full bg-[#0c1530] border border-white/8 rounded-xl px-4 py-3.5 text-stone-300 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:outline-none transition-all duration-200 appearance-none text-sm pr-10"
+                        >
+                          <option>Modern Langstroth Beehives</option>
+                          <option>Professional Bee Suits</option>
+                          <option>Stainless Steel Smokers</option>
+                          <option>Honey Extractors</option>
+                          <option>Hive Tool &amp; Brush</option>
+                          <option>Beginner Starter Kit</option>
+                          <option>Farm Expansion Kit</option>
+                        </select>
+                        <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-stone-500 text-xs pointer-events-none" />
+                      </div>
                     </div>
+
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Message (Optional)</label>
-                      <textarea rows={4} placeholder="How can we help you today?"
+                      <textarea
+                        rows={3} placeholder="Any extra details? Quantity, location, etc."
+                        value={formMessage} onChange={e => setFormMessage(e.target.value)}
                         className="w-full bg-[#0c1530] border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder-stone-600 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:outline-none transition-all duration-200 resize-none text-sm"
                       />
                     </div>
-                    <button type="submit"
-                      className="w-full bg-amber-500 hover:bg-amber-400 text-stone-900 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-amber-500/15 active:scale-[0.98] flex items-center justify-center gap-2"
-                    >
-                      <i className="fas fa-paper-plane text-sm" />
-                      Send Inquiry
-                    </button>
+
+                    {/* Preview of the product they selected */}
+                    {formProduct && (
+                      <div className="flex items-center gap-3 bg-amber-500/8 border border-amber-500/20 rounded-xl px-4 py-3">
+                        <i className="fas fa-box-open text-amber-400 text-sm flex-shrink-0" />
+                        <p className="text-amber-300 text-sm">
+                          Ready to inquire about <span className="font-bold">{formProduct}</span>
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Two CTAs: WhatsApp (primary) + plain form submit (secondary) */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                      <a
+                        href={buildWhatsAppLink()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-emerald-500/15 active:scale-[0.98]"
+                      >
+                        <i className="fab fa-whatsapp text-lg" />
+                        Send via WhatsApp
+                      </a>
+                      <button
+                        type="submit"
+                        className="flex-1 flex items-center justify-center gap-2 bg-[#0c1530] hover:bg-[#162248] border border-white/10 hover:border-amber-500/30 text-stone-300 hover:text-amber-400 py-4 rounded-xl font-bold transition-all duration-300 active:scale-[0.98]"
+                      >
+                        <i className="fas fa-paper-plane text-sm" />
+                        Save Inquiry
+                      </button>
+                    </div>
                   </form>
                 )}
               </div>
