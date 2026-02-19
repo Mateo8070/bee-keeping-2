@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
           {/* Headline — 3-line typographic treatment */}
           <div className="hero-fade-up space-y-1" style={{ animationDelay: '0.2s' }}>
             <p className="font-serif text-stone-400 text-xl sm:text-2xl lg:text-3xl leading-tight">Unlock the</p>
-            <h1 className="font-serif leading-none text-transparent bg-clip-text bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-nowrap">
+            <h1 className="font-serif leading-none text-transparent bg-clip-text bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
               Golden Wealth
             </h1>
             <p className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl leading-tight">of Beekeeping</p>
