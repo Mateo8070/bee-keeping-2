@@ -5,7 +5,6 @@ import { FEATURES } from '../constants';
 interface StatItem { icon: string; value: string; label: string; }
 
 const StatCounter: React.FC<{ stat: StatItem; delay?: number }> = ({ stat, delay = 0 }) => {
-  // Parse numeric portion and suffix, e.g. "500+" → 500, "+"
   const match = stat.value.match(/^(\d+\.?\d*)(.*)/);
   const numericTarget = match ? parseFloat(match[1]) : null;
   const suffix = match ? match[2] : '';
@@ -15,7 +14,6 @@ const StatCounter: React.FC<{ stat: StatItem; delay?: number }> = ({ stat, delay
   const [triggered, setTriggered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Trigger when visible
   useEffect(() => {
     const el = ref.current;
     if (!el || numericTarget === null) return;
@@ -27,7 +25,6 @@ const StatCounter: React.FC<{ stat: StatItem; delay?: number }> = ({ stat, delay
     return () => observer.disconnect();
   }, [numericTarget]);
 
-  // Count-up animation
   useEffect(() => {
     if (!triggered || numericTarget === null) return;
     const duration = 1800;
@@ -35,7 +32,7 @@ const StatCounter: React.FC<{ stat: StatItem; delay?: number }> = ({ stat, delay
     const step = (ts: number) => {
       if (!startTime) startTime = ts;
       const progress = Math.min((ts - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       const current = isDecimal
         ? (Math.round(eased * numericTarget * 10) / 10).toFixed(1)
         : String(Math.floor(eased * numericTarget));
@@ -48,12 +45,12 @@ const StatCounter: React.FC<{ stat: StatItem; delay?: number }> = ({ stat, delay
 
   return (
     <div ref={ref} className="flex items-center gap-3">
-      <div className="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-        <i className={`fas ${stat.icon} text-amber-400 text-sm`}></i>
+      <div className="w-9 h-9 lg:w-10 lg:h-10 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+        <i className={`fas ${stat.icon} text-amber-400 text-xs lg:text-sm`}></i>
       </div>
       <div>
-        <p className="font-bold text-white text-xl leading-none tabular-nums">{display}</p>
-        <p className="text-stone-500 text-xs mt-0.5">{stat.label}</p>
+        <p className="font-bold text-white text-base lg:text-xl leading-none tabular-nums">{display}</p>
+        <p className="text-stone-500 text-[10px] lg:text-xs mt-0.5">{stat.label}</p>
       </div>
     </div>
   );
@@ -64,15 +61,18 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      {/* Background */}
+      {/* ── Background image ── visible on ALL sizes, more prominent on mobile */}
       <div className="absolute inset-0 z-0">
         <img
           src="/honey.png"
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-40 md:opacity-25"
           alt="Golden honey background"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070d1c] via-[#070d1c]/85 to-[#070d1c]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070d1c] via-transparent to-[#070d1c]/50" />
+        {/* Mobile: strong bottom-to-top gradient so text is always readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070d1c] via-[#070d1c]/80 to-[#070d1c]/50 md:hidden" />
+        {/* Desktop: split gradient from left */}
+        <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-[#070d1c] via-[#070d1c]/85 to-[#070d1c]/40" />
+        <div className="absolute inset-0 hidden md:block bg-gradient-to-t from-[#070d1c] via-transparent to-[#070d1c]/60" />
       </div>
 
       {/* Ambient glows */}
@@ -80,65 +80,75 @@ const Hero: React.FC = () => {
       <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 pb-16 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 pb-16 grid lg:grid-cols-2 gap-12 items-center w-full">
 
-        {/* Left */}
-        <div className="space-y-8">
+        {/* Left: copy */}
+        <div className="space-y-6 lg:space-y-8">
+
+          {/* Eyebrow badge */}
           <div className="hero-fade-up" style={{ animationDelay: '0.1s' }}>
-            <div className="inline-flex items-center gap-2.5 bg-amber-500/10 border border-amber-500/25 px-4 py-2 rounded-full">
-              <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
-              <span className="text-amber-400 text-xs font-bold uppercase tracking-[0.2em]">Beekeeping · The Hidden Treasure</span>
+            <div className="inline-flex items-center gap-2.5 bg-amber-500/10 border border-amber-500/25 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full">
+              <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-amber-400 rounded-full animate-pulse" />
+              <span className="text-amber-400 text-[10px] lg:text-xs font-bold uppercase tracking-[0.15em] lg:tracking-[0.2em]">
+                Beekeeping · The Hidden Treasure
+              </span>
             </div>
           </div>
 
-          <h1 className="hero-fade-up text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.1] text-white" style={{ animationDelay: '0.2s' }}>
+          {/* Heading — smaller on mobile */}
+          <h1
+            className="hero-fade-up font-serif leading-[1.1] text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+            style={{ animationDelay: '0.2s' }}
+          >
             Unlock the{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Golden</span>
             {' '}Wealth of Beekeeping
           </h1>
 
-          <p className="hero-fade-up text-lg text-stone-400 leading-relaxed max-w-lg" style={{ animationDelay: '0.3s' }}>
+          {/* Sub-copy */}
+          <p className="hero-fade-up text-sm sm:text-base lg:text-lg text-stone-400 leading-relaxed max-w-lg" style={{ animationDelay: '0.3s' }}>
             Ngati muli ndi nkhalango pa munda wanu or pakhomo pano —{' '}
             <span className="text-stone-300">gulani zipangizo za ulimi wa njuchi</span>{' '}
             kuti mukolole uchi wambiri!
           </p>
 
-          <div className="hero-fade-up flex flex-wrap gap-4" style={{ animationDelay: '0.4s' }}>
+          {/* CTA buttons — thinner on mobile */}
+          <div className="hero-fade-up flex flex-wrap gap-3" style={{ animationDelay: '0.4s' }}>
             <a
               href="#products"
-              className="bg-amber-500 hover:bg-amber-400 text-stone-900 px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-xl shadow-amber-500/20 hover:shadow-amber-500/35 flex items-center gap-3 group active:scale-95"
+              className="bg-amber-500 hover:bg-amber-400 text-stone-900 px-5 py-2.5 text-sm md:px-8 md:py-4 md:text-base rounded-xl font-bold transition-all duration-300 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/35 flex items-center gap-2 group active:scale-95"
             >
               Shop Equipment
-              <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200" />
+              <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs md:text-sm" />
             </a>
             <a
               href="#about"
-              className="bg-white/5 border border-white/12 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 backdrop-blur-sm flex items-center gap-3 group active:scale-95"
+              className="bg-white/5 border border-white/12 hover:bg-white/10 text-white px-5 py-2.5 text-sm md:px-8 md:py-4 md:text-base rounded-xl font-bold transition-all duration-300 backdrop-blur-sm flex items-center gap-2 group active:scale-95"
             >
               Learn More
-              <i className="fas fa-chevron-down group-hover:translate-y-0.5 transition-transform duration-200" />
+              <i className="fas fa-chevron-down group-hover:translate-y-0.5 transition-transform duration-200 text-xs md:text-sm" />
             </a>
           </div>
 
           {/* Social proof */}
-          <div className="hero-fade-up flex items-center gap-5 pt-4 border-t border-white/8" style={{ animationDelay: '0.5s' }}>
-            <div className="flex -space-x-3">
+          <div className="hero-fade-up flex items-center gap-4 pt-4 border-t border-white/8" style={{ animationDelay: '0.5s' }}>
+            <div className="flex -space-x-2.5">
               {[61, 62, 63, 64].map(i => (
-                <img key={i} src={`https://picsum.photos/id/${i}/100/100`} className="w-10 h-10 rounded-full border-2 border-[#070d1c] object-cover" alt="farmer" />
+                <img key={i} src={`https://picsum.photos/id/${i}/100/100`} className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-2 border-[#070d1c] object-cover" alt="farmer" />
               ))}
             </div>
             <div>
-              <div className="flex text-amber-400 gap-0.5 text-xs mb-0.5">
+              <div className="flex text-amber-400 gap-0.5 text-[10px] mb-0.5">
                 {[1, 2, 3, 4, 5].map(i => <i key={i} className="fas fa-star" />)}
               </div>
-              <p className="text-stone-400 text-sm">
+              <p className="text-stone-400 text-xs lg:text-sm">
                 Trusted by <span className="text-white font-bold">500+ farmers</span> across Malawi
               </p>
             </div>
           </div>
         </div>
 
-        {/* Right: floating image */}
+        {/* Right: floating product image — desktop only */}
         <div className="relative hidden lg:block float-anim">
           <div className="absolute -inset-8 bg-amber-500/12 rounded-[3rem] blur-3xl" />
           <img
@@ -164,9 +174,9 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Stats bar — animated counters */}
-      <div className="relative z-10 border-t border-white/5 bg-[#070d1c]/70 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* Stats bar */}
+      <div className="relative z-10 border-t border-white/5 bg-[#070d1c]/80 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 lg:py-7 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
           {FEATURES.map((f, i) => (
             <StatCounter key={f.label} stat={f} delay={i * 150} />
           ))}
