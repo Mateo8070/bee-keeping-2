@@ -17,14 +17,15 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --bg-primary: #070d1c;
+      --bg-secondary: #0c1530;
+      --bg-card: #0f1e3a;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0c0a09;
-      /* stone-950 */
+      background-color: var(--bg-primary);
       color: #f5f5f4;
       margin: 0;
     }
@@ -33,25 +34,102 @@
       font-family: 'Playfair Display', serif;
     }
 
-    /* Scrollbar styling */
+    /* Smooth custom scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 5px;
     }
 
     ::-webkit-scrollbar-track {
-      background: #1c1917;
+      background: var(--bg-primary);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #44403c;
+      background: #1e3464;
       border-radius: 9999px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
       background: #f59e0b;
+      transition: background 0.3s;
     }
 
-    /* Markdown chat bubble styling */
+    /* ── Scroll-reveal utility ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    /* ── Hero entrance animations ── */
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroFadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes floatY {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .hero-fade-up {
+      animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-fade-in {
+      animation: heroFadeIn 1.0s ease both;
+    }
+
+    .float-anim {
+      animation: floatY 4s ease-in-out infinite;
+    }
+
+    /* ── Markdown chat bubble styling ── */
     .prose-chat ul {
       list-style-type: disc;
       margin-left: 1.25rem;
@@ -80,12 +158,22 @@
       text-decoration: underline;
     }
   </style>
-
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="index.tsx"></script>
+
+  <!-- Scroll-reveal initialiser -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    });
+  </script>
 </body>
 
 </html>
